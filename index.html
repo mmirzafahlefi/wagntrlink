@@ -90,6 +90,25 @@
     .mt-2{
       margin-top: 20px;
     }
+    
+    span {
+  display: inline-block;
+  padding: 10px 10px 6px;
+  border-radius: 6px;
+  background: #80b4e5;
+  margin: 5px 5px;
+  font-size: 5rem;
+}
+.counter{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.message {
+  color: #ccc6e3;
+    text-align: center;
+    margin-top: 10px;
+}
   </style>
 </head>
 <body>
@@ -104,6 +123,16 @@
       <button onclick="Generate()">Generate</button>
     </form>
   </div>
+  
+  <div class="counter">
+      <span>0</span>
+      <span>0</span>
+      <span>0</span>
+      <span>0</span>
+      <span>0</span>
+      <span>0</span>
+    </div>
+    <div class="message">Unique Visits to this Page</div>
 
   <script>
     function Generate() {
@@ -128,6 +157,45 @@
         alert("berhasil copy : " + copy.value)
       })
     }
+    
+    const KEY = `998dd98d-8779-4406-9a78-d15212305eeb`;
+const NAMESPACE = "mmirzafahlefi.github.io";
+const COUNT_URL = `https://api.countapi.xyz`;
+
+const counter = document.querySelectorAll('span');
+
+const getCount = async () => {
+  const response = await fetch(`${COUNT_URL}/get/${NAMESPACE}/${KEY}`);
+  const data = await response.json();
+    setValue(data.value);
+};
+
+const incrementCount = async () => {
+  const response = await fetch(`${COUNT_URL}/hit/${NAMESPACE}/${KEY}`);
+  const data = await response.json();
+  setValue(data.value);
+};
+
+const setValue = (num) => {
+  var str = num.toString().padStart(6, "0");
+  for (let index = 0; index < str.length; index++) {
+    const element = str[index];
+    counter[index].innerHTML = element;
+  }
+};
+
+if (localStorage.getItem("hasVisited") == null) {
+  incrementCount()
+    .then(() => {
+      localStorage.setItem("hasVisited", "true");
+    })
+    .catch((err) => console.log(err));
+} else {
+  getCount()
+    .catch((err) => console.log(err));
+}
+
+
   </script>
 </body>
 </html>
