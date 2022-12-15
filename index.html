@@ -122,10 +122,7 @@
       <input type="text" id="pesan" placeholder="Masukkan pesan" required>
       <button onclick="Generate()">Generate</button>
     </form>
-  </div>
-  
-  <div class="counter">
-      <span>0</span>
+    <div class="counter">
       <span>0</span>
       <span>0</span>
       <span>0</span>
@@ -133,6 +130,7 @@
       <span>0</span>
     </div>
     <div class="message">Unique Visits to this Page</div>
+  </div>
 
   <script>
     function Generate() {
@@ -177,7 +175,7 @@ const incrementCount = async () => {
 };
 
 const setValue = (num) => {
-  var str = num.toString().padStart(6, "0");
+  var str = num.toString().padStart(5, "0");
   for (let index = 0; index < str.length; index++) {
     const element = str[index];
     counter[index].innerHTML = element;
